@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   GitBranch,
   ExternalLink,
@@ -13,11 +13,194 @@ import {
   MapPin,
   Coffee,
   Briefcase,
-  Layout
+  Layout,
+  GraduationCap
 } from 'lucide-react';
+
+function TypewriterText({ text, delay = 0, className = '' }) {
+  const [displayed, setDisplayed] = useState('');
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const startTimer = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(startTimer);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    let i = 0;
+    setDisplayed('');
+    const interval = setInterval(() => {
+      setDisplayed(text.slice(0, i + 1));
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, 45);
+    return () => clearInterval(interval);
+  }, [started, text]);
+
+  return (
+    <span className={className}>
+      {displayed}
+      {displayed.length < text.length && started && (
+        <span className="animate-pulse text-purple-400">█</span>
+      )}
+    </span>
+  );
+}
+
+function LoadingScreen() {
+  const [progress, setProgress] = useState(0);
+  const [phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(p => {
+        if (p >= 100) { clearInterval(interval); return 100; }
+        return p + Math.random() * 4 + 1;
+      });
+    }, 60);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase(1), 300);
+    const t2 = setTimeout(() => setPhase(2), 1000);
+    const t3 = setTimeout(() => setPhase(3), 1700);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
+
+  const logs = [
+    { text: '> Initializing portfolio system...', delay: 300 },
+    { text: '> Loading modules: React, Framer Motion', delay: 700 },
+    { text: '> Mounting interface components...', delay: 1100 },
+    { text: '> ACCESS GRANTED', delay: 1600, accent: true },
+  ];
+
+  return (
+    <motion.div
+      key="loader"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: 'easeInOut' }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030308] overflow-hidden"
+    >
+      {/* Animated grid background */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(139,92,246,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.07) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
+      />
+
+      {/* Scan line effect */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(transparent 50%, rgba(0,0,0,0.08) 50%)',
+          backgroundSize: '100% 4px',
+          zIndex: 1,
+        }}
+      />
+
+      {/* Ambient glows */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-purple-700/15 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-indigo-600/10 blur-[80px] rounded-full pointer-events-none" />
+
+      {/* HUD Corner brackets */}
+      {[
+        'top-6 left-6 border-t-2 border-l-2',
+        'top-6 right-6 border-t-2 border-r-2',
+        'bottom-6 left-6 border-b-2 border-l-2',
+        'bottom-6 right-6 border-b-2 border-r-2',
+      ].map((pos, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: i * 0.1, duration: 0.4 }}
+          className={`absolute w-10 h-10 border-purple-500/60 ${pos}`}
+        />
+      ))}
+
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center w-full max-w-lg px-8">
+
+        {/* Tag line */}
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-purple-400/70 text-xs tracking-[0.4em] uppercase mb-6 font-mono"
+        >
+          — Portfolio System v2.0 —
+        </motion.p>
+
+        {/* Big name with glitch */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.5, ease: 'backOut' }}
+          className="relative mb-2 text-center"
+        >
+          <h1 className="text-6xl md:text-7xl font-bold tracking-tighter text-white font-mono">
+            Ash<span className="text-purple-400">.</span>
+          </h1>
+          {/* Glitch lines */}
+          <motion.div
+            animate={{ opacity: [0, 0.6, 0], x: [0, -3, 3, 0] }}
+            transition={{ duration: 0.15, delay: 0.8, repeat: 3, repeatDelay: 0.5 }}
+            className="absolute inset-0 text-6xl md:text-7xl font-bold tracking-tighter text-purple-400/40 font-mono select-none"
+            aria-hidden
+          >
+            Ash<span className="text-indigo-400/40">.</span>
+          </motion.div>
+        </motion.div>
+
+        {/* Sub role typewriter */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-purple-300/60 text-sm font-mono mb-10 h-5"
+        >
+          {phase >= 1 && <TypewriterText text="Frontend Developer & Student @ MUSABA" delay={0} />}
+        </motion.div>
+
+        {/* Terminal log */}
+        <div className="w-full bg-black/40 border border-purple-500/20 rounded-lg p-4 mb-6 font-mono text-xs space-y-1 min-h-[90px]">
+          {logs.map((log, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: phase >= 1 ? 1 : 0 }}
+              transition={{ delay: (log.delay - 300) / 1000 }}
+              className={log.accent ? 'text-green-400 font-bold' : 'text-gray-500'}
+            >
+              <TypewriterText text={log.text} delay={log.delay} />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-2 border border-purple-500/10">
+          <motion.div
+            className="h-full bg-gradient-to-r from-purple-600 via-indigo-400 to-purple-400 rounded-full"
+            style={{ width: `${Math.min(progress, 100)}%` }}
+          />
+        </div>
+        <div className="flex justify-between w-full text-[10px] font-mono text-purple-500/50">
+          <span>LOADING</span>
+          <span>{Math.min(Math.round(progress), 100)}%</span>
+        </div>
+
+      </div>
+    </motion.div>
+  );
+}
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (darkMode) {
@@ -26,6 +209,11 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleTheme = () => setDarkMode(!darkMode);
 
@@ -43,7 +231,17 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans selection:bg-purple-500/30">
+    <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen />}
+      </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans selection:bg-purple-500/30"
+      >
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass-card border-b-0 border-white/5 bg-white/70 dark:bg-black/50">
@@ -59,8 +257,10 @@ export default function App() {
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-6 text-sm font-medium">
               <a href="#about" className="hover:text-purple-500 transition-colors">About</a>
-              <a href="#projects" className="hover:text-purple-500 transition-colors">Projects</a>
               <a href="#skills" className="hover:text-purple-500 transition-colors">Skills</a>
+              <a href="#experience" className="hover:text-purple-500 transition-colors">Experience</a>
+              <a href="#education" className="hover:text-purple-500 transition-colors">Education</a>
+              <a href="#projects" className="hover:text-purple-500 transition-colors">Projects</a>
             </div>
             <button
               onClick={toggleTheme}
@@ -191,6 +391,148 @@ export default function App() {
                 ))}
               </ul>
             </motion.div>
+          </div>
+        </section>
+
+        {/* Experience Section */}
+        <section id="experience" className="py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-2">Work Experience</h2>
+            <p className="text-gray-500 dark:text-gray-400">Pengalaman kerja dan magang saya.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 overflow-hidden shadow-sm"
+          >
+            {/* Card Header */}
+            <div className="p-8 flex gap-6">
+              <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
+                <Briefcase size={24} />
+              </div>
+              <div>
+                <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">Peserta PKL (Praktik Kerja Lapangan)</span>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">PT Global Intermedia Nusantara</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Mendapatkan pengalaman industri secara langsung di lingkungan profesional IT.
+                </p>
+                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                  <MapPin size={14} className="text-purple-500" />
+                  <span>Jl. Taman Siswa No.125, Wirogunan, Mergangsan, Kota Yogyakarta, DIY</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Interactive Map */}
+            <div className="relative w-full h-64 border-t border-gray-200 dark:border-white/5">
+              <iframe
+                title="Lokasi PT Global Intermedia Nusantara"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=110.36800%2C-7.80600%2C110.37800%2C-7.79900&layer=mapnik&marker=-7.80260%2C110.37307"
+                className="w-full h-full"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+              />
+              <a
+                href="https://www.openstreetmap.org/?mlat=-7.8026&mlon=110.3731#map=17/-7.8026/110.3731"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-2 right-2 text-xs px-2 py-1 bg-white dark:bg-gray-900 rounded shadow text-gray-600 dark:text-gray-300 hover:text-purple-500 transition-colors"
+              >
+                Buka peta lebih besar ↗
+              </a>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Education Section */}
+        <section id="education" className="py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-2">Education Journey</h2>
+            <p className="text-gray-500 dark:text-gray-400">Riwayat pendidikan yang telah saya tempuh.</p>
+          </motion.div>
+
+          <div className="max-w-3xl space-y-6">
+            {[
+              {
+                school: "SMK Muhammadiyah 1 Bantul (MUSABA)",
+                level: "Sekolah Menengah Kejuruan",
+                desc: "Jurusan Pengembangan Perangkat Lunak dan Game (PPLG). 2023 - 2026.",
+                address: "Jl. Parangtritis KM.11, Manding, Sabdodadi, Bantul, DIY",
+                mapSrc: "https://www.openstreetmap.org/export/embed.html?bbox=110.32500%2C-7.93800%2C110.33500%2C-7.93100&layer=mapnik&marker=-7.93450%2C110.33000",
+                mapLink: "https://www.openstreetmap.org/?mlat=-7.9345&mlon=110.3300#map=17/-7.9345/110.3300"
+              },
+              {
+                school: "SMP 2 Negeri Kretek",
+                level: "Sekolah Menengah Pertama",
+                desc: "Lulus",
+                address: "Jl. Parangtritis KM.16, Kretek, Bantul, DIY",
+                mapSrc: "https://www.openstreetmap.org/export/embed.html?bbox=110.29500%2C-7.97500%2C110.30500%2C-7.96800&layer=mapnik&marker=-7.97130%2C110.29990",
+                mapLink: "https://www.openstreetmap.org/?mlat=-7.9713&mlon=110.2999#map=17/-7.9713/110.2999"
+              },
+              {
+                school: "SD 1 Parangtritis",
+                level: "Sekolah Dasar",
+                desc: "Lulus",
+                address: "Parangtritis, Kretek, Bantul, Daerah Istimewa Yogyakarta",
+                mapSrc: "https://www.openstreetmap.org/export/embed.html?bbox=110.32000%2C-8.02800%2C110.33000%2C-8.02100&layer=mapnik&marker=-8.02450%2C110.32500",
+                mapLink: "https://www.openstreetmap.org/?mlat=-8.0245&mlon=110.3250#map=17/-8.0245/110.3250"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 overflow-hidden shadow-sm"
+              >
+                <div className="p-6 flex gap-5">
+                  <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
+                    <GraduationCap size={24} />
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">{item.level}</span>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{item.school}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-3">{item.desc}</p>
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                      <MapPin size={14} className="text-purple-500 shrink-0" />
+                      <span>{item.address}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative w-full h-52 border-t border-gray-200 dark:border-white/5">
+                  <iframe
+                    title={`Lokasi ${item.school}`}
+                    src={item.mapSrc}
+                    className="w-full h-full"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    allowFullScreen
+                  />
+                  <a
+                    href={item.mapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-2 right-2 text-xs px-2 py-1 bg-white dark:bg-gray-900 rounded shadow text-gray-600 dark:text-gray-300 hover:text-purple-500 transition-colors"
+                  >
+                    Buka peta lebih besar ↗
+                  </a>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
@@ -339,6 +681,7 @@ export default function App() {
         </footer>
 
       </main>
-    </div>
+      </motion.div>
+    </>
   );
 }
