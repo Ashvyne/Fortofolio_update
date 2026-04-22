@@ -1,21 +1,39 @@
 import { useState, useEffect } from 'react';
+import heroImg from './assets/hero.jpg';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  GitBranch,
-  ExternalLink,
-  Code2,
-  Database,
-  Terminal,
-  Moon,
-  Sun,
-  ChevronDown,
-  Mail,
-  MapPin,
-  Coffee,
-  Briefcase,
-  Layout,
-  GraduationCap
-} from 'lucide-react';
+  LuGitBranch,
+  LuExternalLink,
+  LuCode,
+  LuDatabase,
+  LuTerminal,
+  LuMoon,
+  LuSun,
+  LuChevronDown,
+  LuMail,
+  LuMapPin,
+  LuCoffee,
+  LuBriefcase,
+  LuLayoutGrid,
+  LuGraduationCap,
+  LuZap,
+  LuCalendar,
+  LuBuilding2,
+  LuCake,
+  LuServer,
+} from 'react-icons/lu';
+import {
+  SiReact,
+  SiTailwindcss,
+  SiJavascript,
+  SiNodedotjs,
+  SiPhp,
+  SiLaravel,
+  SiMysql,
+  SiGit,
+  SiGithub,
+  SiVercel
+} from 'react-icons/si';
 
 function TypewriterText({ text, delay = 0, className = '' }) {
   const [displayed, setDisplayed] = useState('');
@@ -266,7 +284,7 @@ export default function App() {
               onClick={toggleTheme}
               className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
             >
-              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+              {darkMode ? <LuSun size={18} /> : <LuMoon size={18} />}
             </button>
           </div>
         </div>
@@ -276,41 +294,88 @@ export default function App() {
 
         {/* Hero Section */}
         <section id="about" className="min-h-[80vh] flex flex-col justify-center relative">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="max-w-3xl"
-          >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 text-sm font-medium mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-              </span>
-              Available for work
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+
+            {/* Left: Text Content */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex-1"
+            >
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 text-sm font-medium mb-6">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                </span>
+                Available for work
+              </motion.div>
+
+              <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+                Hi, I'm Ash. <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-400">
+                  Frontend Developer
+                </span>
+              </motion.h1>
+
+              <motion.p variants={itemVariants} className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl leading-relaxed">
+                Saya adalah siswa Davvin Andarestha Handoko Dari jurusan Pengembangan Perangkat Lunak dan Game  di SMK Muhammadiyah 1 Bantul
+              </motion.p>
+
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+                <a href="#projects" className="px-6 py-3 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium transition-all shadow-lg shadow-purple-500/25 flex items-center gap-2">
+                  View My Work
+                </a>
+                <a href="https://github.com/Ashvyne" target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 font-medium transition-all flex items-center gap-2">
+                  <LuGitBranch size={20} />
+                  GitHub Profile
+                </a>
+              </motion.div>
             </motion.div>
 
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-              Hi, I'm Ash. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-400">
-                Frontend Developer
-              </span>
-            </motion.h1>
+            {/* Right: Profile Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, x: 40 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: 'backOut', delay: 0.3 }}
+              className="relative shrink-0 flex items-center justify-center"
+            >
+              {/* Outer decorative ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+                className="absolute w-72 h-72 md:w-80 md:h-80 rounded-full border border-dashed border-purple-400/30"
+              />
+              {/* Inner ring */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                className="absolute w-60 h-60 md:w-68 md:h-68 rounded-full border border-purple-500/20"
+              />
 
-            <motion.p variants={itemVariants} className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl leading-relaxed">
-              Saya adalah siswa Davvin Andarestha Handoko Dari jurusan Pengembangan Perangkat Lunak dan Game  di SMK Muhammadiyah 1 Bantul
-            </motion.p>
+              {/* Glow behind photo */}
+              <div className="absolute w-52 h-52 md:w-60 md:h-60 rounded-full bg-purple-600/20 blur-2xl" />
 
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-              <a href="#projects" className="px-6 py-3 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium transition-all shadow-lg shadow-purple-500/25 flex items-center gap-2">
-                View My Work
-              </a>
-              <a href="https://github.com/Ashvyne" target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 font-medium transition-all flex items-center gap-2">
-                <GitBranch size={20} />
-                GitHub Profile
-              </a>
+              {/* Profile image */}
+              <div className="relative w-52 h-52 md:w-60 md:h-60 rounded-full overflow-hidden border-4 border-purple-500/40 shadow-2xl shadow-purple-500/20">
+                <img
+                  src={heroImg}
+                  alt="Davvin Andarestha Handoko"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+
+              {/* Floating badge */}
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -bottom-2 -right-2 md:bottom-4 md:right-0 bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 shadow-lg flex items-center gap-2 text-sm font-medium"
+              >
+                <LuZap size={16} className="text-purple-500" />
+                <span className="text-gray-700 dark:text-gray-300">PPLG · MUSABA</span>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -318,9 +383,10 @@ export default function App() {
             transition={{ delay: 1, duration: 1 }}
             className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400"
           >
-            <ChevronDown size={24} />
+            <LuChevronDown size={24} />
           </motion.div>
         </section>
+
 
         {/* Skills Section */}
         <section id="skills" className="py-20">
@@ -341,14 +407,18 @@ export default function App() {
               className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 shadow-sm"
             >
               <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6">
-                <Code2 size={24} />
+                <LuCode size={24} />
               </div>
               <h3 className="text-xl font-bold mb-4">Frontend</h3>
               <ul className="space-y-3">
-                {['React.js', 'Tailwind CSS', 'JavaScript (ES6+)'].map((skill) => (
-                  <li key={skill} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                    {skill}
+                {[
+                  { name: 'React.js', icon: <SiReact className="text-[#61DAFB]" /> },
+                  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-[#06B6D4]" /> },
+                  { name: 'JavaScript (ES6+)', icon: <SiJavascript className="text-[#F7DF1E]" /> }
+                ].map((skill) => (
+                  <li key={skill.name} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    {skill.icon}
+                    {skill.name}
                   </li>
                 ))}
               </ul>
@@ -360,14 +430,19 @@ export default function App() {
               className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 shadow-sm"
             >
               <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-500/10 flex items-center justify-center text-green-500 mb-6">
-                <Database size={24} />
+                <LuDatabase size={24} />
               </div>
               <h3 className="text-xl font-bold mb-4">Backend</h3>
               <ul className="space-y-3">
-                {['Node.js', 'PHP', 'Laravel', 'MySQL'].map((skill) => (
-                  <li key={skill} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                    {skill}
+                {[
+                  { name: 'Node.js', icon: <SiNodedotjs className="text-[#339933]" /> },
+                  { name: 'PHP', icon: <SiPhp className="text-[#777BB4]" /> },
+                  { name: 'Laravel', icon: <SiLaravel className="text-[#FF2D20]" /> },
+                  { name: 'MySQL', icon: <SiMysql className="text-[#4479A1]" /> }
+                ].map((skill) => (
+                  <li key={skill.name} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    {skill.icon}
+                    {skill.name}
                   </li>
                 ))}
               </ul>
@@ -379,14 +454,18 @@ export default function App() {
               className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 shadow-sm"
             >
               <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6">
-                <Terminal size={24} />
+                <LuTerminal size={24} />
               </div>
               <h3 className="text-xl font-bold mb-4">Tools</h3>
               <ul className="space-y-3">
-                {['Git & GitHub (PRs)', 'XAMPP', 'Vercel'].map((skill) => (
-                  <li key={skill} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
-                    {skill}
+                {[
+                  { name: 'Git & GitHub', icon: <SiGithub className="text-gray-900 dark:text-white" /> },
+                  { name: 'XAMPP', icon: <LuServer className="text-[#FB7E14]" /> },
+                  { name: 'Vercel', icon: <SiVercel className="text-black dark:text-white" /> }
+                ].map((skill) => (
+                  <li key={skill.name} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    {skill.icon}
+                    {skill.name}
                   </li>
                 ))}
               </ul>
@@ -415,39 +494,36 @@ export default function App() {
             {/* Card Header */}
             <div className="p-8 flex gap-6">
               <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
-                <Briefcase size={24} />
+                <LuBriefcase size={24} />
               </div>
-              <div>
+              <div className="flex-1">
                 <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">Peserta PKL (Praktik Kerja Lapangan)</span>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">PT Global Intermedia Nusantara</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Mendapatkan pengalaman industri secara langsung di lingkungan profesional IT.
-                </p>
-                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                  <MapPin size={14} className="text-purple-500" />
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 font-medium">
+                    <LuCalendar size={12} /> 2025 (selama SMK)
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400">
+                    <LuBuilding2 size={12} /> Perusahaan IT Profesional
+                  </span>
+                </div>
+                <ul className="space-y-2 mb-4">
+                  {[
+                    "Mendapatkan pengalaman industri secara langsung di lingkungan profesional IT",
+                    "Berkontribusi dalam proyek teknologi dan pengembangan perangkat lunak",
+                    "Menerapkan skill coding yang dipelajari di sekolah ke dunia nyata",
+                  ].map((h, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 pt-3 border-t border-gray-100 dark:border-white/5">
+                  <LuMapPin size={12} className="text-purple-500 shrink-0" />
                   <span>Jl. Taman Siswa No.125, Wirogunan, Mergangsan, Kota Yogyakarta, DIY</span>
                 </div>
               </div>
-            </div>
-
-            {/* Interactive Map */}
-            <div className="relative w-full h-64 border-t border-gray-200 dark:border-white/5">
-              <iframe
-                title="Lokasi PT Global Intermedia Nusantara"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=110.36800%2C-7.80600%2C110.37800%2C-7.79900&layer=mapnik&marker=-7.80260%2C110.37307"
-                className="w-full h-full"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen
-              />
-              <a
-                href="https://www.openstreetmap.org/?mlat=-7.8026&mlon=110.3731#map=17/-7.8026/110.3731"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-2 right-2 text-xs px-2 py-1 bg-white dark:bg-gray-900 rounded shadow text-gray-600 dark:text-gray-300 hover:text-purple-500 transition-colors"
-              >
-                Buka peta lebih besar ↗
-              </a>
             </div>
           </motion.div>
         </section>
@@ -469,26 +545,39 @@ export default function App() {
               {
                 school: "SMK Muhammadiyah 1 Bantul (MUSABA)",
                 level: "Sekolah Menengah Kejuruan",
-                desc: "Jurusan Pengembangan Perangkat Lunak dan Game (PPLG). 2023 - 2026.",
+                period: "2023 – 2026",
+                age: "Masuk umur 15 tahun",
                 address: "Jl. Parangtritis KM.11, Manding, Sabdodadi, Bantul, DIY",
-                mapSrc: "https://www.openstreetmap.org/export/embed.html?bbox=110.32500%2C-7.93800%2C110.33500%2C-7.93100&layer=mapnik&marker=-7.93450%2C110.33000",
-                mapLink: "https://www.openstreetmap.org/?mlat=-7.9345&mlon=110.3300#map=17/-7.9345/110.3300"
+                highlights: [
+                  "Jurusan Pengembangan Perangkat Lunak dan Game (PPLG)",
+                  "Mengerjakan proyek UKK: CaféPOS — sistem kasir berbasis web full-stack",
+                  "Aktif belajar React, Node.js, Laravel, dan MySQL",
+                  "Menyelesaikan PKL di PT Global Intermedia Nusantara, Yogyakarta",
+                  "Lulus (est.) 2026"
+                ],
               },
               {
                 school: "SMP 2 Negeri Kretek",
                 level: "Sekolah Menengah Pertama",
-                desc: "Lulus",
+                period: "2020 – 2023",
+                age: "Masuk umur 12 tahun",
                 address: "Jl. Parangtritis KM.16, Kretek, Bantul, DIY",
-                mapSrc: "https://www.openstreetmap.org/export/embed.html?bbox=110.29500%2C-7.97500%2C110.30500%2C-7.96800&layer=mapnik&marker=-7.97130%2C110.29990",
-                mapLink: "https://www.openstreetmap.org/?mlat=-7.9713&mlon=110.2999#map=17/-7.9713/110.2999"
+                highlights: [
+                  "Menempuh pendidikan selama 3 tahun",
+                  "Mulai mengenal dunia teknologi dan komputer",
+                  "Lulus tahun 2023",
+                ],
               },
               {
                 school: "SD 1 Parangtritis",
                 level: "Sekolah Dasar",
-                desc: "Lulus",
+                period: "2014 – 2020",
+                age: "Masuk umur 6 tahun",
                 address: "Parangtritis, Kretek, Bantul, Daerah Istimewa Yogyakarta",
-                mapSrc: "https://www.openstreetmap.org/export/embed.html?bbox=110.32000%2C-8.02800%2C110.33000%2C-8.02100&layer=mapnik&marker=-8.02450%2C110.32500",
-                mapLink: "https://www.openstreetmap.org/?mlat=-8.0245&mlon=110.3250#map=17/-8.0245/110.3250"
+                highlights: [
+                  "Menempuh pendidikan dasar selama 6 tahun",
+                  "Lulus tahun 2020",
+                ],
               }
             ].map((item, index) => (
               <motion.div
@@ -499,42 +588,47 @@ export default function App() {
                 transition={{ delay: index * 0.1 }}
                 className="rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 overflow-hidden shadow-sm"
               >
-                <div className="p-6 flex gap-5">
-                  <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
-                    <GraduationCap size={24} />
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">{item.level}</span>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{item.school}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-3">{item.desc}</p>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                      <MapPin size={14} className="text-purple-500 shrink-0" />
-                      <span>{item.address}</span>
+                <div className="p-6">
+                  {/* Header row */}
+                  <div className="flex gap-5 mb-5">
+                    <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
+                      <LuGraduationCap size={24} />
+                    </div>
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">{item.level}</span>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{item.school}</h3>
+                      <div className="flex flex-wrap gap-3 mt-2">
+                        <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 font-medium">
+                          <LuCalendar size={12} /> {item.period}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400">
+                          <LuCake size={12} /> {item.age}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="relative w-full h-52 border-t border-gray-200 dark:border-white/5">
-                  <iframe
-                    title={`Lokasi ${item.school}`}
-                    src={item.mapSrc}
-                    className="w-full h-full"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    allowFullScreen
-                  />
-                  <a
-                    href={item.mapLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute bottom-2 right-2 text-xs px-2 py-1 bg-white dark:bg-gray-900 rounded shadow text-gray-600 dark:text-gray-300 hover:text-purple-500 transition-colors"
-                  >
-                    Buka peta lebih besar ↗
-                  </a>
+
+                  {/* Highlights */}
+                  <ul className="space-y-2 mb-4">
+                    {item.highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Location */}
+                  <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 pt-3 border-t border-gray-100 dark:border-white/5">
+                    <LuMapPin size={12} className="text-purple-500 shrink-0" />
+                    <span>{item.address}</span>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
+
 
         {/* Projects Section */}
         <section id="projects" className="py-20">
@@ -582,17 +676,17 @@ export default function App() {
 
                 <div className="flex gap-4 mt-auto">
                   <a href="https://dev-kasir.horn-yastudio.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline">
-                    <ExternalLink size={16} /> Live Demo
+                    <LuExternalLink size={16} /> Live Demo
                   </a>
                   <a href="https://github.com/Ashvyne/kasir-node" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:underline">
-                    <GitBranch size={16} /> Source Code
+                    <LuGitBranch size={16} /> Source Code
                   </a>
                 </div>
               </div>
 
               <div className="md:w-1/2 relative bg-gray-100 dark:bg-gray-900 min-h-[300px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20" />
-                <Coffee className="w-32 h-32 text-gray-300 dark:text-gray-700 drop-shadow-xl" />
+                <LuCoffee className="w-32 h-32 text-gray-300 dark:text-gray-700 drop-shadow-xl" />
                 {/* Decorative UI elements mimicking a POS */}
                 <div className="absolute top-10 right-10 w-32 h-20 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl hidden md:block"></div>
                 <div className="absolute bottom-10 left-10 w-48 h-32 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl hidden md:block"></div>
@@ -608,7 +702,7 @@ export default function App() {
               className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 flex flex-col h-full"
             >
               <div className="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-500/10 flex items-center justify-center text-pink-500 mb-6">
-                <Layout size={24} />
+                <LuLayoutGrid size={24} />
               </div>
               <h3 className="text-xl font-bold mb-3">Project RT</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
@@ -622,7 +716,7 @@ export default function App() {
                 ))}
               </div>
               <a href="https://github.com/Ashvyne" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-pink-600 dark:text-pink-400 hover:underline mt-auto">
-                <GitBranch size={16} /> View Code
+                <LuGitBranch size={16} /> View Code
               </a>
             </motion.div>
 
@@ -635,7 +729,7 @@ export default function App() {
               className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 flex flex-col h-full"
             >
               <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6">
-                <Briefcase size={24} />
+                <LuBriefcase size={24} />
               </div>
               <h3 className="text-xl font-bold mb-3">Task Manager</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
@@ -649,7 +743,7 @@ export default function App() {
                 ))}
               </div>
               <a href="#" className="flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mt-auto">
-                <GitBranch size={16} /> View Code
+                <LuGitBranch size={16} /> View Code
               </a>
             </motion.div>
 
@@ -662,16 +756,16 @@ export default function App() {
             <div>
               <div className="text-2xl font-bold mb-2">Ash.</div>
               <p className="text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                <MapPin size={16} /> Based in Indonesia
+                <LuMapPin size={16} /> Based in Indonesia
               </p>
             </div>
 
             <div className="flex gap-4">
               <a href="mailto:andaresthadavvin@gmail.com" className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-purple-500 hover:text-white transition-all">
-                <Mail size={18} />
+                <LuMail size={18} />
               </a>
               <a href="https://github.com/Ashvyne/kasir-node" className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-purple-500 hover:text-white transition-all">
-                <GitBranch size={18} />
+                <LuGitBranch size={18} />
               </a>
             </div>
           </div>
