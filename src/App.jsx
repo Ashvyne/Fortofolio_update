@@ -279,6 +279,7 @@ export default function App() {
               <a href="#experience" className="hover:text-purple-500 transition-colors">Experience</a>
               <a href="#education" className="hover:text-purple-500 transition-colors">Education</a>
               <a href="#projects" className="hover:text-purple-500 transition-colors">Projects</a>
+              <a href="#contact" className="hover:text-purple-500 transition-colors">Contact</a>
             </div>
             <button
               onClick={toggleTheme}
@@ -482,51 +483,80 @@ export default function App() {
             className="mb-12"
           >
             <h2 className="text-3xl font-bold mb-2">Work Experience</h2>
-            <p className="text-gray-500 dark:text-gray-400">Pengalaman kerja dan magang saya.</p>
+            <p className="text-gray-500 dark:text-gray-400">My professional journey and contributions.</p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-3xl rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 overflow-hidden shadow-sm"
-          >
-            {/* Card Header */}
-            <div className="p-8 flex gap-6">
-              <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
-                <LuBriefcase size={24} />
-              </div>
-              <div className="flex-1">
-                <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">Peserta PKL (Praktik Kerja Lapangan)</span>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">PT Global Intermedia Nusantara</h3>
-                <div className="flex flex-wrap gap-3 mb-4">
-                  <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 font-medium">
-                    <LuCalendar size={12} /> 2025 (selama SMK)
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400">
-                    <LuBuilding2 size={12} /> Perusahaan IT Profesional
-                  </span>
+          <div className="max-w-3xl mx-auto">
+            {[
+              {
+                title: "Data Entry and Web Developer (PKL)",
+                company: "PT Global Intermedia Nusantara",
+                period: "July 2025 - Desember 2025",
+                description: "PT Global Intermedia Nusantara adalah perusahaan konsultan IT dan pengembang perangkat lunak di Yogyakarta yang mengkhususkan diri dalam solusi digital untuk sektor publik dan swasta.",
+                responsibilities: [
+                  "Membantu pengembangan aplikasi web berbasis framework Laravel dan PHP.",
+                  "Bekerja sama dengan tim developer dalam implementasi UI/UX menggunakan Tailwind CSS.",
+                  "Terlibat dalam pemeliharaan database dan optimasi query MySQL.",
+                  "Mengikuti alur kerja tim menggunakan Git untuk version control.",
+                  "Mempelajari standar profesional dalam pengembangan perangkat lunak skala enterprise."
+                ],
+                technologies: ["PHP", "Laravel", "JavaScript", "MySQL", "Tailwind CSS", "Git", "Node.js", "Express.js",]
+              }
+            ].map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group relative rounded-3xl bg-[#12121a] border border-white/5 p-8 flex flex-col h-full hover:border-purple-500/30 transition-all duration-300"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-1">{exp.title}</h3>
+                    <span className="text-lg font-semibold text-purple-400">{exp.company}</span>
+                  </div>
+                  <div className="px-4 py-1.5 rounded-full border border-orange-500/30 text-orange-400 text-xs font-medium">
+                    {exp.period}
+                  </div>
                 </div>
-                <ul className="space-y-2 mb-4">
-                  {[
-                    "Mendapatkan pengalaman industri secara langsung di lingkungan profesional IT",
-                    "Berkontribusi dalam proyek teknologi dan pengembangan perangkat lunak",
-                    "Menerapkan skill coding yang dipelajari di sekolah ke dunia nyata",
-                  ].map((h, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400">
-                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 pt-3 border-t border-gray-100 dark:border-white/5">
-                  <LuMapPin size={12} className="text-purple-500 shrink-0" />
-                  <span>Jl. Taman Siswa No.125, Wirogunan, Mergangsan, Kota Yogyakarta, DIY</span>
+
+                <div className="border-t border-white/5 pt-6 mb-6">
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {exp.description}
+                  </p>
                 </div>
-              </div>
-            </div>
-          </motion.div>
+
+                {/* Responsibilities */}
+                <div className="mb-8 flex-grow">
+                  <h4 className="text-sm font-bold text-purple-400/80 uppercase tracking-wider mb-4">Key Responsibilities:</h4>
+                  <ul className="space-y-3">
+                    {exp.responsibilities.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                        <div className="w-5 h-5 rounded-full border-2 border-indigo-500/50 flex-shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Technologies */}
+                <div>
+                  <h4 className="text-sm font-bold text-blue-400/80 uppercase tracking-wider mb-4">Technologies Used:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.technologies.map((tech, i) => (
+                      <span key={i} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs font-medium">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </section>
+
 
         {/* Education Section */}
         <section id="education" className="py-20">
@@ -534,13 +564,16 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-12"
+            className="mb-16 text-center"
           >
-            <h2 className="text-3xl font-bold mb-2">Education Journey</h2>
-            <p className="text-gray-500 dark:text-gray-400">Riwayat pendidikan yang telah saya tempuh.</p>
+            <h2 className="text-4xl font-bold mb-4">Education Journey</h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-purple-500 to-indigo-400 mx-auto rounded-full" />
+            <p className="mt-6 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-lg">
+              Riwayat pendidikan yang telah saya tempuh untuk membangun fondasi di dunia teknologi.
+            </p>
           </motion.div>
 
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-4xl mx-auto space-y-8">
             {[
               {
                 school: "SMK Muhammadiyah 1 Bantul (MUSABA)",
@@ -586,42 +619,52 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 overflow-hidden shadow-sm"
+                whileHover={{ y: -5 }}
+                className="group relative rounded-[2rem] bg-[#12121a] border border-white/5 p-8 hover:border-purple-500/30 transition-all duration-500 overflow-hidden"
               >
-                <div className="p-6">
-                  {/* Header row */}
-                  <div className="flex gap-5 mb-5">
-                    <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 border border-purple-200 dark:border-purple-500/20">
-                      <LuGraduationCap size={24} />
+                {/* Background decorative glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full -mr-10 -mt-10" />
+                
+                <div className="relative flex flex-col md:flex-row gap-8">
+                  {/* Icon & Year */}
+                  <div className="flex flex-col items-center gap-4 shrink-0">
+                    <div className="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20 group-hover:scale-110 transition-transform duration-500">
+                      <LuGraduationCap size={32} />
                     </div>
-                    <div className="flex-1">
-                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400 block mb-1">{item.level}</span>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{item.school}</h3>
-                      <div className="flex flex-wrap gap-3 mt-2">
-                        <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 font-medium">
-                          <LuCalendar size={12} /> {item.period}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400">
-                          <LuCake size={12} /> {item.age}
-                        </span>
-                      </div>
+                    <div className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-bold border border-purple-500/20 whitespace-nowrap tracking-wider uppercase">
+                      {item.period}
                     </div>
                   </div>
 
-                  {/* Highlights */}
-                  <ul className="space-y-2 mb-4">
-                    {item.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400">
-                        <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                      <div>
+                        <span className="text-[10px] font-bold text-purple-400 uppercase tracking-[0.2em] block mb-1">{item.level}</span>
+                        <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                          {item.school}
+                        </h3>
+                      </div>
+                      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 text-sm h-fit">
+                        <LuCake size={14} className="text-purple-500" />
+                        <span className="text-xs font-medium">{item.age}</span>
+                      </div>
+                    </div>
 
-                  {/* Location */}
-                  <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 pt-3 border-t border-gray-100 dark:border-white/5">
-                    <LuMapPin size={12} className="text-purple-500 shrink-0" />
-                    <span>{item.address}</span>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 mb-8">
+                      {item.highlights.map((h, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-gray-400 leading-relaxed">
+                          <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Location Footer */}
+                    <div className="flex items-center gap-2 text-[11px] text-gray-500 pt-6 border-t border-white/5">
+                      <LuMapPin size={14} className="text-purple-500" />
+                      <span>{item.address}</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -636,117 +679,171 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-12"
+            className="mb-16 text-center"
           >
-            <h2 className="text-3xl font-bold mb-2">Featured Projects</h2>
-            <p className="text-gray-500 dark:text-gray-400">A showcase of my recent work, including my UKK project.</p>
+            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-purple-500 to-indigo-400 mx-auto rounded-full" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(300px,auto)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "CaféPOS",
+                status: "COMPLETED",
+                description: "A comprehensive web-based Point of Sale system specifically designed for the Vocational Competency Exam (UKK). It streamlines cafe operations.",
+                tags: ["React", "Node.js", "Express", "MySQL"],
+                icon: <LuCoffee className="w-12 h-12" />,
+                liveUrl: "https://dev-kasir.horn-yastudio.com",
+                codeUrl: "https://github.com/Ashvyne/kasir-node"
+              },
+              {
+                title: "Project RT",
+                status: "COMPLETED",
+                description: "Sistem pendataan warga dan administrasi tingkat Rukun Tetangga (RT) untuk mempermudah pelaporan dan pencatatan data secara digital.",
+                tags: ["PHP", "MySQL", "Bootstrap"],
+                icon: <LuLayoutGrid className="w-12 h-12" />,
+                liveUrl: null,
+                codeUrl: "https://github.com/Ashvyne"
+              },
+              {
+                title: "Task Manager",
+                status: "COMPLETED",
+                description: "A full-stack task management application developed during coursework, implementing secure authentication and REST APIs.",
+                tags: ["Laravel", "PHP", "MySQL"],
+                icon: <LuBriefcase className="w-12 h-12" />,
+                liveUrl: null,
+                codeUrl: "#"
+              }
+            ].map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -10 }}
+                className="group flex flex-col h-full bg-[#12121a] border border-white/5 rounded-[2rem] p-6 hover:border-purple-500/30 transition-all duration-500"
+              >
+                {/* Project Image/Icon */}
+                <div className="relative aspect-video w-full rounded-2xl bg-gray-900 flex items-center justify-center overflow-hidden mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 group-hover:opacity-100 transition-opacity" />
+                  <div className="text-white/20 group-hover:text-purple-400/40 transition-colors duration-500 scale-100 group-hover:scale-110">
+                    {project.icon}
+                  </div>
+                </div>
 
-            {/* Main Project: CafePOS */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="md:col-span-2 group relative overflow-hidden rounded-3xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 flex flex-col md:flex-row"
-            >
-              <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-300">
-                    UKK Project
-                  </span>
-                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
-                    Aplikasi_kasir2
+                {/* Badge & Title */}
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-500 text-[10px] font-bold uppercase tracking-wider border border-green-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    {project.status}
                   </span>
                 </div>
-                <h3 className="text-3xl font-bold mb-4">CaféPOS</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  A comprehensive web-based Point of Sale system specifically designed for the Vocational Competency Exam (UKK). It streamlines cafe operations with features for transaction management, real-time inventory tracking, and detailed reporting.
+
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
+                  {project.description}
                 </p>
 
+                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {['React', 'Node.js', 'Express', 'MySQL', 'Tailwind'].map(tech => (
-                    <span key={tech} className="px-3 py-1 text-sm rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
-                      {tech}
+                  {project.tags.map(tag => (
+                    <span key={tag} className="px-3 py-1 text-[11px] rounded-lg bg-white/5 border border-white/10 text-gray-400 font-medium">
+                      {tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex gap-4 mt-auto">
-                  <a href="https://dev-kasir.horn-yastudio.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline">
-                    <LuExternalLink size={16} /> Live Demo
-                  </a>
-                  <a href="https://github.com/Ashvyne/kasir-node" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:underline">
-                    <LuGitBranch size={16} /> Source Code
-                  </a>
+                {/* Buttons */}
+                <div className="flex gap-3">
+                  {project.codeUrl && (
+                    <a 
+                      href={project.codeUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all ${!project.liveUrl ? 'flex-[2]' : ''}`}
+                    >
+                      <SiGithub size={16} /> Code
+                    </a>
+                  )}
+                  {project.liveUrl && (
+                    <a 
+                      href={project.liveUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-purple-500/50 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 text-sm font-medium transition-all"
+                    >
+                      <LuExternalLink size={16} /> Live Demo
+                    </a>
+                  )}
                 </div>
-              </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
-              <div className="md:w-1/2 relative bg-gray-100 dark:bg-gray-900 min-h-[300px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20" />
-                <LuCoffee className="w-32 h-32 text-gray-300 dark:text-gray-700 drop-shadow-xl" />
-                {/* Decorative UI elements mimicking a POS */}
-                <div className="absolute top-10 right-10 w-32 h-20 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl hidden md:block"></div>
-                <div className="absolute bottom-10 left-10 w-48 h-32 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl hidden md:block"></div>
-              </div>
-            </motion.div>
 
-            {/* Placeholder Project 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+        {/* Contact Section */}
+        <section id="contact" className="py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 text-center"
+          >
+            <h2 className="text-4xl font-bold mb-4">Get in Touch</h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-purple-500 to-indigo-400 mx-auto rounded-full" />
+            <p className="mt-6 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-lg">
+              Punya pertanyaan atau ingin berkolaborasi? Jangan ragu untuk menghubungi saya!
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.a
+              href="mailto:andaresthadavvin@gmail.com"
               whileHover={{ y: -5 }}
-              className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 flex flex-col h-full"
+              className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-purple-500/30"
             >
-              <div className="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-500/10 flex items-center justify-center text-pink-500 mb-6">
-                <LuLayoutGrid size={24} />
+              <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform">
+                <LuMail size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Project RT</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
-                Sistem pendataan warga dan administrasi tingkat Rukun Tetangga (RT) untuk mempermudah pelaporan dan pencatatan data.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {['PHP', 'MySQL', 'Bootstrap'].map(tech => (
-                  <span key={tech} className="px-3 py-1 text-xs rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <a href="https://github.com/Ashvyne" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-pink-600 dark:text-pink-400 hover:underline mt-auto">
-                <LuGitBranch size={16} /> View Code
-              </a>
-            </motion.div>
+              <h3 className="text-xl font-bold mb-2">Email</h3>
+              <p className="text-gray-400 text-sm mb-4">andaresthadavvin@gmail.com</p>
+              <span className="text-purple-400 text-sm font-medium flex items-center gap-2">
+                Send Message <LuExternalLink size={14} />
+              </span>
+            </motion.a>
 
-            {/* Placeholder Project 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <motion.a
+              href="https://github.com/Ashvyne"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -5 }}
-              className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 flex flex-col h-full"
+              className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-blue-500/30"
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6">
-                <LuBriefcase size={24} />
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
+                <SiGithub size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Task Manager</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
-                A full-stack task management application developed during coursework, implementing secure auth and REST APIs.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {['Laravel', 'PHP', 'MySQL', 'Bootstrap'].map(tech => (
-                  <span key={tech} className="px-3 py-1 text-xs rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <a href="#" className="flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mt-auto">
-                <LuGitBranch size={16} /> View Code
-              </a>
-            </motion.div>
+              <h3 className="text-xl font-bold mb-2">GitHub</h3>
+              <p className="text-gray-400 text-sm mb-4">Check my repositories</p>
+              <span className="text-blue-400 text-sm font-medium flex items-center gap-2">
+                Visit Profile <LuExternalLink size={14} />
+              </span>
+            </motion.a>
 
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-green-500/30"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-transform">
+                <LuMapPin size={28} />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Location</h3>
+              <p className="text-gray-400 text-sm mb-4">Bantul, Yogyakarta, Indonesia</p>
+              <span className="text-green-400 text-sm font-medium">Available for Remote</span>
+            </motion.div>
           </div>
         </section>
 
