@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import heroImg from './assets/hero.jpg';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -32,7 +33,9 @@ import {
   SiMysql,
   SiGit,
   SiGithub,
-  SiVercel
+  SiVercel,
+  SiVuedotjs,
+  SiExpress
 } from 'react-icons/si';
 
 function TypewriterText({ text, delay = 0, className = '' }) {
@@ -398,14 +401,14 @@ export default function App() {
             className="mb-12"
           >
             <h2 className="text-3xl font-bold mb-2">Technical Arsenal</h2>
-            <p className="text-gray-500 dark:text-gray-400">The tools I use to build digital experiences.</p>
+            <p className="text-gray-500 dark:text-gray-400">The tools I use to build digital experiences. Saat ini berfokus pada pengembangan Full-Frontend menggunakan React, Vue, dan Express.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Frontend */}
             <motion.div
-              whileHover={{ y: -5 }}
-              className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 shadow-sm"
+              whileHover={{ y: -8, boxShadow: "0 0 30px rgba(168,85,247,0.25), 0 20px 25px -5px rgba(0,0,0,0.3)" }}
+              whileTap={{ scale: 0.98 }}
+              className="p-6 rounded-2xl bg-[#12121a] border border-purple-500/25 shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6">
                 <LuCode size={24} />
@@ -414,21 +417,26 @@ export default function App() {
               <ul className="space-y-3">
                 {[
                   { name: 'React.js', icon: <SiReact className="text-[#61DAFB]" /> },
-                  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-[#06B6D4]" /> },
-                  { name: 'JavaScript (ES6+)', icon: <SiJavascript className="text-[#F7DF1E]" /> }
+                  { name: 'Vue.js', icon: <SiVuedotjs className="text-[#4FC08D]" /> },
+                  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-[#06B6D4]" /> }
                 ].map((skill) => (
-                  <li key={skill.name} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                  <motion.li 
+                    key={skill.name} 
+                    whileHover={{ x: 5, color: "#a855f7" }}
+                    className="flex items-center gap-3 text-gray-600 dark:text-gray-300 cursor-default"
+                  >
                     {skill.icon}
                     {skill.name}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.div>
 
             {/* Backend */}
             <motion.div
-              whileHover={{ y: -5 }}
-              className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 shadow-sm"
+              whileHover={{ y: -8, boxShadow: "0 0 30px rgba(168,85,247,0.25), 0 20px 25px -5px rgba(0,0,0,0.3)" }}
+              whileTap={{ scale: 0.98 }}
+              className="p-6 rounded-2xl bg-[#12121a] border border-purple-500/25 shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-500/10 flex items-center justify-center text-green-500 mb-6">
                 <LuDatabase size={24} />
@@ -437,22 +445,28 @@ export default function App() {
               <ul className="space-y-3">
                 {[
                   { name: 'Node.js', icon: <SiNodedotjs className="text-[#339933]" /> },
+                  { name: 'Express.js', icon: <SiExpress className="text-gray-900 dark:text-white" /> },
                   { name: 'PHP', icon: <SiPhp className="text-[#777BB4]" /> },
                   { name: 'Laravel', icon: <SiLaravel className="text-[#FF2D20]" /> },
                   { name: 'MySQL', icon: <SiMysql className="text-[#4479A1]" /> }
                 ].map((skill) => (
-                  <li key={skill.name} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                  <motion.li 
+                    key={skill.name} 
+                    whileHover={{ x: 5, color: "#22c55e" }}
+                    className="flex items-center gap-3 text-gray-600 dark:text-gray-300 cursor-default"
+                  >
                     {skill.icon}
                     {skill.name}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.div>
 
             {/* Tools */}
             <motion.div
-              whileHover={{ y: -5 }}
-              className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/5 shadow-sm"
+              whileHover={{ y: -8, boxShadow: "0 0 30px rgba(168,85,247,0.25), 0 20px 25px -5px rgba(0,0,0,0.3)" }}
+              whileTap={{ scale: 0.98 }}
+              className="p-6 rounded-2xl bg-[#12121a] border border-purple-500/25 shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6">
                 <LuTerminal size={24} />
@@ -464,10 +478,14 @@ export default function App() {
                   { name: 'XAMPP', icon: <LuServer className="text-[#FB7E14]" /> },
                   { name: 'Vercel', icon: <SiVercel className="text-black dark:text-white" /> }
                 ].map((skill) => (
-                  <li key={skill.name} className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                  <motion.li 
+                    key={skill.name} 
+                    whileHover={{ x: 5, color: "#f97316" }}
+                    className="flex items-center gap-3 text-gray-600 dark:text-gray-300 cursor-default"
+                  >
                     {skill.icon}
                     {skill.name}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.div>
@@ -500,7 +518,7 @@ export default function App() {
                   "Mengikuti alur kerja tim menggunakan Git untuk version control.",
                   "Mempelajari standar profesional dalam pengembangan perangkat lunak skala enterprise."
                 ],
-                technologies: ["PHP", "Laravel", "JavaScript", "MySQL", "Tailwind CSS", "Git", "Node.js", "Express.js",]
+                technologies: ["PHP", "Laravel", "JavaScript", "MySQL", "Tailwind CSS", "Git", "Node.js", "Express.js", "Vue.js"]
               }
             ].map((exp, index) => (
               <motion.div
@@ -509,6 +527,8 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5, borderColor: "rgba(168, 85, 247, 0.4)" }}
+                whileTap={{ scale: 0.99 }}
                 className="group relative rounded-3xl bg-[#12121a] border border-white/5 p-8 flex flex-col h-full hover:border-purple-500/30 transition-all duration-300"
               >
                 {/* Header */}
@@ -619,7 +639,8 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -8, borderColor: "rgba(168, 85, 247, 0.4)" }}
+                whileTap={{ scale: 0.98 }}
                 className="group relative rounded-[2rem] bg-[#12121a] border border-white/5 p-8 hover:border-purple-500/30 transition-all duration-500 overflow-hidden"
               >
                 {/* Background decorative glow */}
@@ -721,7 +742,8 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
+                whileHover={{ y: -12, borderColor: "rgba(168, 85, 247, 0.4)" }}
+                whileTap={{ scale: 0.97 }}
                 className="group flex flex-col h-full bg-[#12121a] border border-white/5 rounded-[2rem] p-6 hover:border-purple-500/30 transition-all duration-500"
               >
                 {/* Project Image/Icon */}
@@ -803,7 +825,8 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.a
               href="mailto:andaresthadavvin@gmail.com"
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -8, borderColor: "rgba(168, 85, 247, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
               className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-purple-500/30"
             >
               <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform">
@@ -820,7 +843,8 @@ export default function App() {
               href="https://github.com/Ashvyne"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -8, borderColor: "rgba(59, 130, 246, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
               className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-blue-500/30"
             >
               <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
@@ -834,7 +858,8 @@ export default function App() {
             </motion.a>
 
             <motion.div
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -8, borderColor: "rgba(34, 197, 94, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
               className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-green-500/30"
             >
               <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-transform">
