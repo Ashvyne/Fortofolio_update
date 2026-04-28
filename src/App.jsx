@@ -261,8 +261,18 @@ export default function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans selection:bg-purple-500/30"
+        className="min-h-screen bg-gray-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100 transition-colors duration-700 ease-in-out font-sans selection:bg-purple-500/30"
       >
+        {/* Theme transition flash effect */}
+        <AnimatePresence>
+          <motion.div
+            key={darkMode ? 'dark-flash' : 'light-flash'}
+            initial={{ opacity: 0.4 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[60] bg-purple-500/5 pointer-events-none"
+          />
+        </AnimatePresence>
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass-card border-b-0 border-white/5 bg-white/70 dark:bg-black/50">
@@ -286,9 +296,24 @@ export default function App() {
             </div>
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+              className="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-all duration-300 shadow-lg active:scale-90 relative overflow-hidden group"
             >
-              {darkMode ? <LuSun size={18} /> : <LuMoon size={18} />}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={darkMode ? 'dark' : 'light'}
+                  initial={{ y: 20, opacity: 0, rotate: -90 }}
+                  animate={{ y: 0, opacity: 1, rotate: 0 }}
+                  exit={{ y: -20, opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.3, ease: 'backOut' }}
+                >
+                  {darkMode ? <LuSun size={20} className="text-orange-400" /> : <LuMoon size={20} className="text-indigo-600" />}
+                </motion.div>
+              </AnimatePresence>
+              
+              {/* Ripple effect on click */}
+              <motion.div 
+                className="absolute inset-0 bg-purple-500/10 pointer-events-none opacity-0 group-active:opacity-100 transition-opacity"
+              />
             </button>
           </div>
         </div>
@@ -408,12 +433,12 @@ export default function App() {
             <motion.div
               whileHover={{ y: -8, boxShadow: "0 0 30px rgba(168,85,247,0.25), 0 20px 25px -5px rgba(0,0,0,0.3)" }}
               whileTap={{ scale: 0.98 }}
-              className="p-6 rounded-2xl bg-[#12121a] border border-purple-500/25 shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
+              className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-purple-400/20 dark:border-purple-500/25 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6">
                 <LuCode size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-4">Frontend</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Frontend</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'React.js', icon: <SiReact className="text-[#61DAFB]" /> },
@@ -436,12 +461,12 @@ export default function App() {
             <motion.div
               whileHover={{ y: -8, boxShadow: "0 0 30px rgba(168,85,247,0.25), 0 20px 25px -5px rgba(0,0,0,0.3)" }}
               whileTap={{ scale: 0.98 }}
-              className="p-6 rounded-2xl bg-[#12121a] border border-purple-500/25 shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
+              className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-purple-400/20 dark:border-purple-500/25 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-500/10 flex items-center justify-center text-green-500 mb-6">
                 <LuDatabase size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-4">Backend</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Backend</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'Node.js', icon: <SiNodedotjs className="text-[#339933]" /> },
@@ -466,12 +491,12 @@ export default function App() {
             <motion.div
               whileHover={{ y: -8, boxShadow: "0 0 30px rgba(168,85,247,0.25), 0 20px 25px -5px rgba(0,0,0,0.3)" }}
               whileTap={{ scale: 0.98 }}
-              className="p-6 rounded-2xl bg-[#12121a] border border-purple-500/25 shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
+              className="p-6 rounded-2xl bg-white dark:bg-[#12121a] border border-purple-400/20 dark:border-purple-500/25 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.1)] transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6">
                 <LuTerminal size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-4">Tools</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tools</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'Git & GitHub', icon: <SiGithub className="text-gray-900 dark:text-white" /> },
@@ -529,12 +554,12 @@ export default function App() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5, borderColor: "rgba(168, 85, 247, 0.4)" }}
                 whileTap={{ scale: 0.99 }}
-                className="group relative rounded-3xl bg-[#12121a] border border-white/5 p-8 flex flex-col h-full hover:border-purple-500/30 transition-all duration-300"
+                className="group relative rounded-3xl bg-white dark:bg-[#12121a] border border-white/5 p-8 flex flex-col h-full hover:border-purple-500/30 transition-all duration-300"
               >
                 {/* Header */}
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-1">{exp.title}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{exp.title}</h3>
                     <span className="text-lg font-semibold text-purple-400">{exp.company}</span>
                   </div>
                   <div className="px-4 py-1.5 rounded-full border border-orange-500/30 text-orange-400 text-xs font-medium">
@@ -542,8 +567,8 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="border-t border-white/5 pt-6 mb-6">
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                <div className="border-t border-gray-200 dark:border-white/5 pt-6 mb-6">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                     {exp.description}
                   </p>
                 </div>
@@ -553,9 +578,9 @@ export default function App() {
                   <h4 className="text-sm font-bold text-purple-400/80 uppercase tracking-wider mb-4">Key Responsibilities:</h4>
                   <ul className="space-y-3">
                     {exp.responsibilities.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                        <div className="w-5 h-5 rounded-full border-2 border-indigo-500/50 flex-shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                      <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+                        <div className="w-5 h-5 rounded-full border-2 border-indigo-500/50 dark:border-indigo-500/30 bg-indigo-50 dark:bg-transparent flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 dark:text-gray-300">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -566,7 +591,7 @@ export default function App() {
                   <h4 className="text-sm font-bold text-blue-400/80 uppercase tracking-wider mb-4">Technologies Used:</h4>
                   <div className="flex flex-wrap gap-2">
                     {exp.technologies.map((tech, i) => (
-                      <span key={i} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs font-medium">
+                      <span key={i} className="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 text-xs font-medium">
                         {tech}
                       </span>
                     ))}
@@ -641,7 +666,7 @@ export default function App() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -8, borderColor: "rgba(168, 85, 247, 0.4)" }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative rounded-[2rem] bg-[#12121a] border border-white/5 p-8 hover:border-purple-500/30 transition-all duration-500 overflow-hidden"
+                className="group relative rounded-[2rem] bg-white dark:bg-[#12121a] border border-white/5 p-8 hover:border-purple-500/30 transition-all duration-500 overflow-hidden"
               >
                 {/* Background decorative glow */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full -mr-10 -mt-10" />
@@ -661,12 +686,12 @@ export default function App() {
                   <div className="flex-1">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                       <div>
-                        <span className="text-[10px] font-bold text-purple-400 uppercase tracking-[0.2em] block mb-1">{item.level}</span>
-                        <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                        <span className="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-[0.2em] block mb-1">{item.level}</span>
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-purple-400 transition-colors">
                           {item.school}
                         </h3>
                       </div>
-                      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 text-sm h-fit">
+                      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 h-fit">
                         <LuCake size={14} className="text-purple-500" />
                         <span className="text-xs font-medium">{item.age}</span>
                       </div>
@@ -674,7 +699,7 @@ export default function App() {
 
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 mb-8">
                       {item.highlights.map((h, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-gray-400 leading-relaxed">
+                        <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                           <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
                           {h}
                         </li>
@@ -682,9 +707,9 @@ export default function App() {
                     </ul>
 
                     {/* Location Footer */}
-                    <div className="flex items-center gap-2 text-[11px] text-gray-500 pt-6 border-t border-white/5">
+                    <div className="flex items-center gap-2 text-[11px] text-gray-500 pt-6 border-t border-gray-200 dark:border-white/5">
                       <LuMapPin size={14} className="text-purple-500" />
-                      <span>{item.address}</span>
+                      <span className="text-gray-500 dark:text-gray-400">{item.address}</span>
                     </div>
                   </div>
                 </div>
@@ -744,7 +769,7 @@ export default function App() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -12, borderColor: "rgba(168, 85, 247, 0.4)" }}
                 whileTap={{ scale: 0.97 }}
-                className="group flex flex-col h-full bg-[#12121a] border border-white/5 rounded-[2rem] p-6 hover:border-purple-500/30 transition-all duration-500"
+                className="group flex flex-col h-full bg-white dark:bg-[#12121a] border border-white/5 rounded-[2rem] p-6 hover:border-purple-500/30 transition-all duration-500"
               >
                 {/* Project Image/Icon */}
                 <div className="relative aspect-video w-full rounded-2xl bg-gray-900 flex items-center justify-center overflow-hidden mb-8">
@@ -756,7 +781,7 @@ export default function App() {
 
                 {/* Badge & Title */}
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-400 transition-colors">
                     {project.title}
                   </h3>
                   <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-500 text-[10px] font-bold uppercase tracking-wider border border-green-500/20">
@@ -765,14 +790,14 @@ export default function App() {
                   </span>
                 </div>
 
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
                   {project.description}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-8">
                   {project.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 text-[11px] rounded-lg bg-white/5 border border-white/10 text-gray-400 font-medium">
+                    <span key={tag} className="px-3 py-1 text-[11px] rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 font-medium">
                       {tag}
                     </span>
                   ))}
@@ -827,13 +852,13 @@ export default function App() {
               href="mailto:andaresthadavvin@gmail.com"
               whileHover={{ y: -8, borderColor: "rgba(168, 85, 247, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-purple-500/30"
+              className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-purple-500/30"
             >
               <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform">
                 <LuMail size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Email</h3>
-              <p className="text-gray-400 text-sm mb-4">andaresthadavvin@gmail.com</p>
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Email</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">andaresthadavvin@gmail.com</p>
               <span className="text-purple-400 text-sm font-medium flex items-center gap-2">
                 Send Message <LuExternalLink size={14} />
               </span>
@@ -845,13 +870,13 @@ export default function App() {
               rel="noopener noreferrer"
               whileHover={{ y: -8, borderColor: "rgba(59, 130, 246, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-blue-500/30"
+              className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-blue-500/30"
             >
               <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
                 <SiGithub size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-2">GitHub</h3>
-              <p className="text-gray-400 text-sm mb-4">Check my repositories</p>
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Check my repositories</p>
               <span className="text-blue-400 text-sm font-medium flex items-center gap-2">
                 Visit Profile <LuExternalLink size={14} />
               </span>
@@ -860,13 +885,13 @@ export default function App() {
             <motion.div
               whileHover={{ y: -8, borderColor: "rgba(34, 197, 94, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="p-8 rounded-3xl bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-green-500/30"
+              className="p-8 rounded-3xl bg-white dark:bg-[#12121a] border border-white/5 flex flex-col items-center text-center group transition-all hover:border-green-500/30"
             >
               <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-transform">
                 <LuMapPin size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Location</h3>
-              <p className="text-gray-400 text-sm mb-4">Bantul, Yogyakarta, Indonesia</p>
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Location</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Bantul, Yogyakarta, Indonesia</p>
               <span className="text-green-400 text-sm font-medium">Available for Remote</span>
             </motion.div>
           </div>
