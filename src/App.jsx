@@ -57,6 +57,36 @@ function LoadingScreen() {
   );
 }
 
+// Fallback Data for Vercel / No Supabase
+const MOCK_DATA = {
+  projects: [
+    { id: 1, title: 'CaféPOS', status: 'COMPLETED', description: 'Web-based Point of Sale specifically designed for Vocational Competency Exam (UKK).', tags: ['React', 'Node.js', 'Express', 'MySQL'], icon_name: 'LuCoffee', live_url: 'https://dev-kasir.horn-yastudio.com', code_url: 'https://github.com/Ashvyne/kasir-node' },
+    { id: 2, title: 'Project RT', status: 'COMPLETED', description: 'Sistem pendataan warga dan administrasi tingkat Rukun Tetangga (RT) secara digital.', tags: ['PHP', 'MySQL', 'Bootstrap'], icon_name: 'LuLayout', code_url: 'https://github.com/Ashvyne' },
+    { id: 3, title: 'Task Manager', status: 'COMPLETED', description: 'Full-stack task management application with secure authentication and REST APIs.', tags: ['Laravel', 'PHP', 'MySQL'], icon_name: 'LuBriefcase', code_url: '#' }
+  ],
+  experience: [
+    { id: 1, title: 'Data Entry and Web Developer (PKL)', company: 'PT Global Intermedia Nusantara', period: 'July 2025 – Desember 2025', description: 'Perusahaan konsultan IT dan pengembang perangkat lunak di Yogyakarta.', responsibilities: ['Membantu pengembangan aplikasi web berbasis Laravel', 'UI/UX menggunakan Tailwind CSS', 'Maintenance database MySQL'], technologies: ['PHP', 'Laravel', 'MySQL', 'Tailwind CSS'] }
+  ],
+  education: [
+    { id: 1, school: 'SMK Muhammadiyah 1 Bantul', level: 'Sekolah Menengah Kejuruan', period: '2023 – 2026', age: 'Masuk umur 15 tahun', address: 'Bantul, DIY', highlights: ['Jurusan PPLG', 'Fokus React & Node.js', 'Lulus (est.) 2026'] },
+    { id: 2, school: 'SMP 1 Kretek', level: 'Sekolah Menengah Pertama', period: '2020 – 2023', age: 'Masuk umur 12 tahun', address: 'Bantul, DIY', highlights: ['Mulai mengenal dunia teknologi', 'Lulus tahun 2023'] },
+    { id: 3, school: 'SD 1 Parangtritis', level: 'Sekolah Dasar', period: '2014 – 2020', age: 'Masuk umur 6 tahun', address: 'Bantul, DIY', highlights: ['Pendidikan dasar 6 tahun', 'Lulus tahun 2020'] }
+  ],
+  skills: [
+    { id: 1, name: 'React.js', category: 'Frontend', icon_name: 'SiReact' },
+    { id: 2, name: 'Vue.js', category: 'Frontend', icon_name: 'SiVuedotjs' },
+    { id: 3, name: 'Tailwind CSS', category: 'Frontend', icon_name: 'SiTailwindcss' },
+    { id: 4, name: 'Node.js', category: 'Backend', icon_name: 'SiNodedotjs' },
+    { id: 5, name: 'Express.js', category: 'Backend', icon_name: 'SiExpress' },
+    { id: 6, name: 'PHP', category: 'Backend', icon_name: 'SiPhp' },
+    { id: 7, name: 'Laravel', category: 'Backend', icon_name: 'SiLaravel' },
+    { id: 8, name: 'MySQL', category: 'Backend', icon_name: 'SiMysql' },
+    { id: 9, name: 'Git & GitHub', category: 'Tools', icon_name: 'SiGithub' },
+    { id: 10, name: 'XAMPP', category: 'Tools', icon_name: 'SiXampp' },
+    { id: 11, name: 'Vercel', category: 'Tools', icon_name: 'SiVercel' }
+  ]
+};
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -105,17 +135,27 @@ function Portfolio() {
 
   async function fetchAllData() {
     setFetchingData(true);
-    const [p, ex, ed, sk] = await Promise.all([
-      supabase.from('projects').select('*').order('created_at', { ascending: false }),
-      supabase.from('experience').select('*').order('created_at', { ascending: false }),
-      supabase.from('education').select('*').order('created_at', { ascending: false }),
-      supabase.from('skills').select('*').order('created_at', { ascending: true })
-    ]);
-    if (p.data) setProjects(p.data);
-    if (ex.data) setExperience(ex.data);
-    if (ed.data) setEducation(ed.data);
-    if (sk.data) setSkills(sk.data);
-    setFetchingData(false);
+    try {
+      const [p, ex, ed, sk] = await Promise.all([
+        supabase.from('projects').select('*').order('created_at', { ascending: false }),
+        supabase.from('experience').select('*').order('created_at', { ascending: false }),
+        supabase.from('education').select('*').order('created_at', { ascending: false }),
+        supabase.from('skills').select('*').order('created_at', { ascending: true })
+      ]);
+
+      setProjects(p.data && p.data.length > 0 ? p.data : MOCK_DATA.projects);
+      setExperience(ex.data && ex.data.length > 0 ? ex.data : MOCK_DATA.experience);
+      setEducation(ed.data && ed.data.length > 0 ? ed.data : MOCK_DATA.education);
+      setSkills(sk.data && sk.data.length > 0 ? sk.data : MOCK_DATA.skills);
+    } catch (err) {
+      console.error("Fetch failed, using mock data:", err);
+      setProjects(MOCK_DATA.projects);
+      setExperience(MOCK_DATA.experience);
+      setEducation(MOCK_DATA.education);
+      setSkills(MOCK_DATA.skills);
+    } finally {
+      setFetchingData(false);
+    }
   }
 
   const handleContactSubmit = async (e) => {
