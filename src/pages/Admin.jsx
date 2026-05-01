@@ -5,6 +5,7 @@ import {
   LuPlus, LuTrash2, LuLogOut, LuSave, LuX, LuExternalLink, LuCode, 
   LuBriefcase, LuGraduationCap, LuLayoutGrid, LuZap, LuDatabase, LuTerminal
 } from 'react-icons/lu';
+import Swal from 'sweetalert2';
 
 export default function Admin() {
   const [session, setSession] = useState(null);
@@ -63,7 +64,27 @@ export default function Admin() {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) alert('Login Gagal: ' + error.message);
+    if (error) {
+      Swal.fire({
+        title: 'Login Gagal',
+        text: error.message,
+        icon: 'error',
+        background: '#12121a',
+        color: '#fff',
+        confirmButtonColor: '#9333ea'
+      });
+    } else {
+      Swal.fire({
+        title: 'Berhasil!',
+        text: 'Selamat datang kembali, Ash!',
+        icon: 'success',
+        background: '#12121a',
+        color: '#fff',
+        confirmButtonColor: '#9333ea',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
     setLoading(false);
   }
 
@@ -108,8 +129,26 @@ export default function Admin() {
       error = err;
     }
 
-    if (error) alert(error.message);
-    else {
+    if (error) {
+      Swal.fire({
+        title: 'Error',
+        text: error.message,
+        icon: 'error',
+        background: '#12121a',
+        color: '#fff',
+        confirmButtonColor: '#9333ea'
+      });
+    } else {
+      Swal.fire({
+        title: 'Saved!',
+        text: 'Data berhasil diperbarui.',
+        icon: 'success',
+        background: '#12121a',
+        color: '#fff',
+        confirmButtonColor: '#9333ea',
+        timer: 1500,
+        showConfirmButton: false
+      });
       resetForm();
       fetchData();
     }
@@ -117,10 +156,41 @@ export default function Admin() {
   }
 
   async function handleDelete(id) {
-    if (!confirm('Are you sure you want to delete this item?')) return;
-    const { error } = await supabase.from(activeTab).delete().eq('id', id);
-    if (error) alert(error.message);
-    else fetchData();
+    const result = await Swal.fire({
+      title: 'Yakin mau hapus?',
+      text: "Data yang dihapus nggak bisa balik lagi!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, Hapus!',
+      background: '#12121a',
+      color: '#fff'
+    });
+
+    if (result.isConfirmed) {
+      const { error } = await supabase.from(activeTab).delete().eq('id', id);
+      if (error) {
+        Swal.fire({
+          title: 'Error',
+          text: error.message,
+          icon: 'error',
+          background: '#12121a',
+          color: '#fff'
+        });
+      } else {
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Data sudah dihapus.',
+          icon: 'success',
+          background: '#12121a',
+          color: '#fff',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        fetchData();
+      }
+    }
   }
 
   if (!session) {

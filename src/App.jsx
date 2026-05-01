@@ -7,6 +7,7 @@ import * as SiIcons from 'react-icons/si';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import Admin from './pages/Admin';
+import Swal from 'sweetalert2';
 
 // Mapping Brand Colors for Icons
 const brandColors = {
@@ -161,10 +162,33 @@ function Portfolio() {
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const { error } = await supabase.from('messages').insert([formData]);
-    if (error) setFormStatus('error');
-    else { setFormStatus('success'); setFormData({ name: '', email: '', message: '' }); }
-    setIsSubmitting(false);
+    try {
+      const { error } = await supabase.from('messages').insert([formData]);
+      if (error) throw error;
+      
+      Swal.fire({
+        title: 'Success!',
+        text: 'Pesan terkirim! Segera gw bales bro.',
+        icon: 'success',
+        confirmButtonColor: '#4f46e5',
+        background: darkMode ? '#1e293b' : '#fff',
+        color: darkMode ? '#fff' : '#000'
+      });
+      
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Gagal kirim pesan. Coba lagi nanti ya.',
+        icon: 'error',
+        confirmButtonColor: '#4f46e5',
+        background: darkMode ? '#1e293b' : '#fff',
+        color: darkMode ? '#fff' : '#000'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const skillCategories = [
