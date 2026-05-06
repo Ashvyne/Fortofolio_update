@@ -39,20 +39,104 @@ const DynamicIcon = ({ name, className, size = 24 }) => {
 };
 
 function LoadingScreen() {
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(p => (p >= 100 ? 100 : p + Math.random() * 4 + 1));
-    }, 60);
-    return () => clearInterval(interval);
-  }, []);
+  const containerVariants = {
+    exit: {
+      opacity: 0,
+      scale: 1.1,
+      filter: "blur(20px)",
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+    }
+  };
+
   return (
-    <motion.div exit={{ opacity: 0 }} className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0f172a]">
-      <div className="relative z-10 flex flex-col items-center w-full max-w-lg px-8">
-        <h1 className="text-6xl font-bold tracking-tighter text-white font-mono mb-10 text-glow">Ash<span className="text-indigo-400">.</span></h1>
-        <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-2 border border-indigo-500/10">
-          <motion.div className="h-full bg-gradient-to-r from-indigo-600 to-indigo-400" style={{ width: `${progress}%` }} />
+    <motion.div 
+      variants={containerVariants}
+      initial={{ opacity: 1 }}
+      exit="exit" 
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a1a] overflow-hidden"
+    >
+      {/* Deep Gradient Background with Vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,16,101,0.6)_0%,rgba(10,10,26,1)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
+      
+      {/* Ambient Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 blur-[150px] rounded-full" />
+
+      <div className="relative z-10 flex flex-col items-center max-w-2xl text-center px-6">
+        {/* Top Icons with Glow */}
+        <div className="flex gap-4 mb-10">
+          {[
+            { icon: <LuIcons.LuCode size={20} />, delay: 0 },
+            { icon: <LuIcons.LuUser size={20} />, delay: 0.1 },
+            { icon: <SiIcons.SiGithub size={20} />, delay: 0.2 }
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: item.delay, duration: 0.6 }}
+              className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 relative group overflow-hidden backdrop-blur-md"
+            >
+              <div className="absolute inset-0 bg-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              {/* Permanent small glow */}
+              <div className="absolute -inset-1 bg-indigo-500/10 blur-md rounded-full" />
+              <div className="relative z-10">{item.icon}</div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Heading */}
+        <div className="space-y-4 mb-12">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight"
+          >
+            Welcome To My
+          </motion.h1>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-4xl md:text-6xl font-black tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+          >
+            Portfolio Website
+          </motion.h2>
+        </div>
+
+        {/* Bottom Tag */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-2.5"
+        >
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.8)]" />
+          <LuIcons.LuGlobe size={14} className="text-indigo-400" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50">ashvyne.dev</span>
+        </motion.div>
+      </div>
+
+      {/* Decorative Particle Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array(20).fill(0).map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.5, 0], scale: [0, 1, 0] }}
+            transition={{ 
+              duration: Math.random() * 3 + 2, 
+              repeat: Infinity, 
+              delay: Math.random() * 5 
+            }}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            style={{ 
+              top: `${Math.random() * 100}%`, 
+              left: `${Math.random() * 100}%` 
+            }}
+          />
+        ))}
       </div>
     </motion.div>
   );
@@ -201,7 +285,7 @@ function Portfolio() {
     <>
       <AnimatePresence>{isLoading && <LoadingScreen />}</AnimatePresence>
 
-      <div className={`relative min-h-screen font-sans selection:bg-indigo-500/30 ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+      <div className={`relative min-h-screen font-['Inter'] selection:bg-indigo-500/30 ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
         
         {/* Base Background Layer */}
         <div className={`fixed inset-0 z-[-2] ${prevDarkMode ? 'bg-[#0f172a]' : 'bg-[#fdf6e3]'}`} />
