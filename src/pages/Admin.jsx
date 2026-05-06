@@ -112,13 +112,41 @@ export default function Admin() {
     e.preventDefault();
     setLoading(true);
 
-    const submissionData = { ...formData };
-    
-    // Process Arrays
-    if (submissionData.tags) submissionData.tags = submissionData.tags.split(',').map(t => t.trim());
-    if (submissionData.technologies) submissionData.technologies = submissionData.technologies.split(',').map(t => t.trim());
-    if (submissionData.responsibilities) submissionData.responsibilities = submissionData.responsibilities.split('\n').map(t => t.trim()).filter(t => t);
-    if (submissionData.highlights) submissionData.highlights = submissionData.highlights.split('\n').map(t => t.trim()).filter(t => t);
+    // Filter relevant fields for the active tab to avoid Supabase errors (column not found)
+    let submissionData = {};
+    if (activeTab === 'projects') {
+      submissionData = {
+        title: formData.title,
+        description: formData.description,
+        tags: formData.tags ? formData.tags.split(',').map(t => t.trim()) : [],
+        code_url: formData.code_url,
+        live_url: formData.live_url
+      };
+    } else if (activeTab === 'experience') {
+      submissionData = {
+        title: formData.title,
+        company: formData.company,
+        period: formData.period,
+        description: formData.description,
+        responsibilities: formData.responsibilities ? formData.responsibilities.split('\n').map(t => t.trim()).filter(t => t) : [],
+        technologies: formData.technologies ? formData.technologies.split(',').map(t => t.trim()) : []
+      };
+    } else if (activeTab === 'education') {
+      submissionData = {
+        school: formData.school,
+        level: formData.level,
+        period: formData.period,
+        age: formData.age,
+        address: formData.address,
+        highlights: formData.highlights ? formData.highlights.split('\n').map(t => t.trim()).filter(t => t) : []
+      };
+    } else if (activeTab === 'skills') {
+      submissionData = {
+        category: formData.category,
+        name: formData.name,
+        icon_name: formData.icon_name
+      };
+    }
 
     let error;
     if (editingItem) {
