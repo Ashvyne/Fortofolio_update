@@ -7,6 +7,9 @@ import * as SiIcons from 'react-icons/si';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import Admin from './pages/Admin';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import Swal from 'sweetalert2';
 
 // Mapping Brand Colors for Icons
@@ -178,6 +181,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Portfolio />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );
