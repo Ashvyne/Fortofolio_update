@@ -100,33 +100,33 @@ export default function Register() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0a0a1a] flex items-center justify-center overflow-hidden font-['Inter'] py-10">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.15)_0%,transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(168,85,247,0.12)_0%,transparent_60%)]" />
+    <div className="relative min-h-screen bg-[#0B0F19] flex items-center justify-center overflow-hidden font-['Inter'] py-10">
+      {/* Background Gradients (Soft) */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.08)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(99,102,241,0.06)_0%,transparent_60%)]" />
 
-      {/* Blobs */}
+      {/* Animated Blobs (Faint & Atmospheric) */}
       <motion.div
-        animate={{ x: [0, 80, 0], y: [0, 50, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/10 blur-[130px]"
+        animate={{ x: [0, 40, 0], y: [0, 20, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+        className="absolute top-[-15%] right-[-10%] w-[50%] h-[50%] rounded-full bg-violet-500/5 blur-[130px]"
       />
       <motion.div
-        animate={{ x: [0, -60, 0], y: [0, -40, 0], scale: [1, 1.12, 1] }}
-        transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
-        className="absolute bottom-[-20%] left-[-10%] w-[45%] h-[45%] rounded-full bg-violet-600/10 blur-[130px]"
+        animate={{ x: [0, -30, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+        transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+        className="absolute bottom-[-15%] left-[-10%] w-[45%] h-[45%] rounded-full bg-indigo-500/5 blur-[130px]"
       />
 
       {/* Dot Grid */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         }}
       />
 
-      {/* Particles */}
+      {/* Floating Particles (Retained) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {particles.map((p) => (
           <motion.div
@@ -134,63 +134,47 @@ export default function Register() {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 0.5, 0], scale: [0, 1, 0], y: [0, -50, 0] }}
             transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
-            className="absolute rounded-full bg-violet-400"
+            className="absolute rounded-full bg-violet-400/80"
             style={{ width: p.size, height: p.size, left: `${p.x}%`, top: `${p.y}%` }}
           />
         ))}
       </div>
 
-      {/* Card */}
+      {/* Card Wrapper */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        initial={{ opacity: 0, y: 30, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full max-w-md mx-4"
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-[420px] mx-4"
       >
-        <div className="relative bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 shadow-2xl shadow-black/40 overflow-hidden">
-          {/* Top accent */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
-          <div className="absolute -top-20 -left-20 w-40 h-40 bg-violet-500/10 rounded-full blur-3xl" />
+        {/* Soft Glass Card */}
+        <div className="relative bg-[#131b2e]/40 backdrop-blur-xl border border-white/[0.05] rounded-[2rem] p-8 shadow-2xl shadow-slate-950/40 overflow-hidden">
+          {/* Subtle Top Accent */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
-          {/* Header */}
+          {/* Logo / Brand Header */}
           <div className="text-center mb-8">
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 0.2 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/40 mb-4"
+              transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 0.15 }}
+              className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400 mb-4"
             >
-              <LuIcons.LuUserPlus size={28} className="text-white" />
+              <LuIcons.LuUserPlus size={24} />
             </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-2xl font-bold text-white tracking-tight"
-            >
+            <h1 className="text-xl font-semibold text-white tracking-tight">
               Buat Akun Baru
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
-              className="text-sm text-slate-400 mt-1"
-            >
+            </h1>
+            <p className="text-sm text-slate-400/90 mt-1.5">
               Daftarkan dirimu ke Ash Portfolio
-            </motion.p>
+            </p>
           </div>
 
           {/* Form */}
-          <motion.form
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            onSubmit={handleSubmit}
-            className="space-y-4"
-          >
+          <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+              <label className="text-[10px] font-bold text-slate-400/80 uppercase tracking-[0.15em] block">
                 Nama Lengkap
               </label>
               <div className="relative group">
@@ -205,14 +189,14 @@ export default function Register() {
                   placeholder="Nama kamu"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder:text-slate-600 outline-none focus:border-violet-500 focus:bg-violet-500/5 transition-all"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-950/30 border border-slate-800/80 text-white text-sm placeholder:text-slate-600 outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/20 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+              <label className="text-[10px] font-bold text-slate-400/80 uppercase tracking-[0.15em] block">
                 Email Address
               </label>
               <div className="relative group">
@@ -227,14 +211,14 @@ export default function Register() {
                   placeholder="ash@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder:text-slate-600 outline-none focus:border-violet-500 focus:bg-violet-500/5 transition-all"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-950/30 border border-slate-800/80 text-white text-sm placeholder:text-slate-600 outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/20 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+              <label className="text-[10px] font-bold text-slate-400/80 uppercase tracking-[0.15em] block">
                 Password
               </label>
               <div className="relative group">
@@ -249,7 +233,7 @@ export default function Register() {
                   placeholder="Min. 8 karakter"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder:text-slate-600 outline-none focus:border-violet-500 focus:bg-violet-500/5 transition-all"
+                  className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-950/30 border border-slate-800/80 text-white text-sm placeholder:text-slate-600 outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/20 transition-all duration-200"
                 />
                 <button
                   type="button"
@@ -259,10 +243,10 @@ export default function Register() {
                   {showPassword ? <LuIcons.LuEyeOff size={16} /> : <LuIcons.LuEye size={16} />}
                 </button>
               </div>
-              {/* Password Strength Bar */}
+              {/* Password Strength Indicator */}
               {formData.password && (
                 <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="mt-2 space-y-1.5">
-                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-slate-950/40 border border-slate-800/50 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: strengthWidth }}
@@ -280,7 +264,7 @@ export default function Register() {
 
             {/* Confirm Password */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+              <label className="text-[10px] font-bold text-slate-400/80 uppercase tracking-[0.15em] block">
                 Konfirmasi Password
               </label>
               <div className="relative group">
@@ -295,12 +279,12 @@ export default function Register() {
                   placeholder="Ulangi password"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className={`w-full pl-11 pr-12 py-3.5 rounded-xl bg-white/[0.05] border text-white text-sm placeholder:text-slate-600 outline-none focus:bg-violet-500/5 transition-all ${
+                  className={`w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-950/30 border text-white text-sm placeholder:text-slate-600 outline-none transition-all duration-200 ${
                     formData.confirmPassword && formData.password !== formData.confirmPassword
-                      ? 'border-red-500/50 focus:border-red-500'
+                      ? 'border-red-500/40 focus:border-red-500/60 focus:ring-1 focus:ring-red-500/20'
                       : formData.confirmPassword && formData.password === formData.confirmPassword
-                      ? 'border-green-500/50 focus:border-green-500'
-                      : 'border-white/10 focus:border-violet-500'
+                      ? 'border-green-500/40 focus:border-green-500/60 focus:ring-1 focus:ring-green-500/20'
+                      : 'border-slate-800/80 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/20'
                   }`}
                 />
                 <button
@@ -327,9 +311,9 @@ export default function Register() {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 transition-all flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed text-sm mt-2"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-500 via-violet-600 to-indigo-600 text-white font-medium tracking-wide transition-all shadow-md flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed text-sm mt-2"
             >
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -340,20 +324,20 @@ export default function Register() {
                 </>
               )}
             </motion.button>
-          </motion.form>
+          </form>
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-white/5" />
-            <span className="text-[11px] text-slate-600 font-medium">sudah punya akun?</span>
-            <div className="flex-1 h-px bg-white/5" />
+            <div className="flex-1 h-px bg-white/[0.04]" />
+            <span className="text-[11px] text-slate-600/80 font-medium">sudah punya akun?</span>
+            <div className="flex-1 h-px bg-white/[0.04]" />
           </div>
 
           {/* Login Link */}
-          <p className="text-center text-sm text-slate-500">
+          <p className="text-center text-sm text-slate-400">
             <Link
               to="/login"
-              className="text-indigo-400 hover:text-indigo-300 font-bold transition-colors flex items-center justify-center gap-2"
+              className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors flex items-center justify-center gap-2"
             >
               <LuIcons.LuLogIn size={16} />
               Masuk ke akun yang ada
@@ -364,7 +348,7 @@ export default function Register() {
           <div className="mt-6 text-center">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 text-xs text-slate-600 hover:text-slate-400 transition-colors"
+              className="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-slate-400 transition-colors"
             >
               <LuIcons.LuArrowLeft size={12} />
               Kembali ke Portfolio
@@ -372,8 +356,9 @@ export default function Register() {
           </div>
         </div>
 
-        <p className="text-center text-[10px] text-slate-700 mt-4 tracking-widest uppercase">
-          Ash<span className="text-violet-600">.</span>dev — Portfolio System
+        {/* Brand Tag */}
+        <p className="text-center text-[10px] text-slate-600/80 mt-6 tracking-widest uppercase">
+          Ash<span className="text-violet-500">.</span>dev — Portfolio System
         </p>
       </motion.div>
     </div>

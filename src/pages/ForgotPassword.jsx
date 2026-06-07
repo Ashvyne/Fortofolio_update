@@ -45,33 +45,33 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0a0a1a] flex items-center justify-center overflow-hidden font-['Inter']">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.12)_0%,transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(236,72,153,0.08)_0%,transparent_60%)]" />
+    <div className="relative min-h-screen bg-[#0B0F19] flex items-center justify-center overflow-hidden font-['Inter']">
+      {/* Background Gradients (Soft) */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.08)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(236,72,153,0.06)_0%,transparent_60%)]" />
 
-      {/* Blobs */}
+      {/* Animated Blobs (Faint & Atmospheric) */}
       <motion.div
-        animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.08, 1] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[100px]"
+        animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+        className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-indigo-500/4 blur-[110px]"
       />
       <motion.div
-        animate={{ x: [0, -40, 0], y: [0, 50, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-pink-600/10 blur-[100px]"
+        animate={{ x: [0, -20, 0], y: [0, 30, 0], scale: [1, 1.08, 1] }}
+        transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+        className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-pink-500/4 blur-[110px]"
       />
 
       {/* Dot Grid */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         }}
       />
 
-      {/* Particles */}
+      {/* Floating Particles (Retained) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {particles.map((p) => (
           <motion.div
@@ -79,52 +79,52 @@ export default function ForgotPassword() {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 0.5, 0], scale: [0, 1, 0], y: [0, -50, 0] }}
             transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
-            className="absolute rounded-full bg-pink-400"
+            className="absolute rounded-full bg-pink-400/80"
             style={{ width: p.size, height: p.size, left: `${p.x}%`, top: `${p.y}%` }}
           />
         ))}
       </div>
 
-      {/* Card */}
+      {/* Card Wrapper */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        initial={{ opacity: 0, y: 30, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full max-w-md mx-4"
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-[420px] mx-4"
       >
-        <div className="relative bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 shadow-2xl shadow-black/40 overflow-hidden">
-          {/* Top accent */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-pink-500 to-transparent" />
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl" />
+        {/* Soft Glass Card */}
+        <div className="relative bg-[#131b2e]/40 backdrop-blur-xl border border-white/[0.05] rounded-[2rem] p-8 shadow-2xl shadow-slate-950/40 overflow-hidden">
+          {/* Subtle Top Accent */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-pink-500/40 to-transparent" />
 
           <AnimatePresence mode="wait">
             {!sent ? (
               /* Form State */
               <motion.div
                 key="form"
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.4 }}
+                exit={{ opacity: 0, x: 15 }}
+                transition={{ duration: 0.35 }}
               >
                 {/* Header */}
                 <div className="text-center mb-8">
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 0.2 }}
-                    className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-600 to-indigo-600 shadow-lg shadow-pink-500/40 mb-4"
+                    transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 0.15 }}
+                    className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-pink-400 mb-4"
                   >
-                    <LuIcons.LuKeyRound size={28} className="text-white" />
+                    <LuIcons.LuKeyRound size={24} />
                   </motion.div>
-                  <h1 className="text-2xl font-bold text-white tracking-tight">Lupa Password?</h1>
-                  <p className="text-sm text-slate-400 mt-2 leading-relaxed">
+                  <h1 className="text-xl font-semibold text-white tracking-tight">Lupa Password?</h1>
+                  <p className="text-sm text-slate-400/90 mt-2 leading-relaxed">
                     Tenang! Masukkan emailmu dan kami akan kirimkan link reset password.
                   </p>
                 </div>
 
-                {/* Info Banner */}
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-indigo-500/5 border border-indigo-500/20 mb-6">
+                {/* Info Banner (Softer) */}
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-indigo-500/[0.03] border border-indigo-500/10 mb-6">
                   <LuIcons.LuInfo size={16} className="text-indigo-400 mt-0.5 shrink-0" />
                   <p className="text-xs text-slate-400 leading-relaxed">
                     Link reset akan dikirim ke email yang terdaftar. Cek folder <strong className="text-slate-300">Spam</strong> jika tidak muncul di Inbox.
@@ -134,7 +134,7 @@ export default function ForgotPassword() {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                    <label className="text-[10px] font-bold text-slate-400/80 uppercase tracking-[0.15em] block">
                       Email Address
                     </label>
                     <div className="relative group">
@@ -149,17 +149,18 @@ export default function ForgotPassword() {
                         placeholder="email yang terdaftar..."
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder:text-slate-600 outline-none focus:border-pink-500 focus:bg-pink-500/5 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-950/30 border border-slate-800/80 text-white text-sm placeholder:text-slate-600 outline-none focus:border-pink-500/60 focus:ring-1 focus:ring-pink-500/20 transition-all duration-200"
                       />
                     </div>
                   </div>
 
+                  {/* Submit Button */}
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-pink-600 to-indigo-600 text-white font-bold shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed text-sm"
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-pink-500 via-pink-600 to-indigo-600 text-white font-medium tracking-wide transition-all shadow-md flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed text-sm"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -176,76 +177,75 @@ export default function ForgotPassword() {
               /* Success State */
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.4 }}
                 className="text-center py-4"
               >
-                {/* Success Icon */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
-                  className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-500/30 mb-6 mx-auto"
-                >
+                {/* Success Icon container (Softer) */}
+                <div className="relative inline-block mb-6">
+                  {/* Orbit Rings (Faint & Clean) */}
+                  <div className="absolute inset-0 flex items-center justify-center -m-10">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                      className="w-24 h-24 rounded-full border border-green-500/10"
+                      style={{ borderTopColor: 'rgba(34,197,94,0.25)' }}
+                    />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center -m-10">
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                      className="w-32 h-32 rounded-full border border-green-500/5"
+                      style={{ borderTopColor: 'rgba(34,197,94,0.1)' }}
+                    />
+                  </div>
+
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.3 }}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/40"
+                    transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
+                    className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20"
                   >
-                    <LuIcons.LuCheck size={22} className="text-white" strokeWidth={3} />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.25 }}
+                      className="w-9 h-9 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-md shadow-green-500/20"
+                    >
+                      <LuIcons.LuCheck size={20} className="text-white" strokeWidth={2.5} />
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-
-                {/* Orbit Rings */}
-                <div className="relative inline-block -mt-[6.5rem] mb-6">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                      className="w-28 h-28 rounded-full border border-green-500/10"
-                      style={{ borderTopColor: 'rgba(34,197,94,0.3)' }}
-                    />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotate: -360 }}
-                      transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-                      className="w-36 h-36 rounded-full border border-green-500/5"
-                      style={{ borderTopColor: 'rgba(34,197,94,0.15)' }}
-                    />
-                  </div>
-                  <div className="h-20 w-20" /> {/* spacer */}
                 </div>
 
-                <h2 className="text-2xl font-bold text-white mb-3">Email Terkirim!</h2>
-                <p className="text-slate-400 text-sm leading-relaxed mb-2">
-                  Link reset password sudah dikirim ke
+                <h2 className="text-xl font-semibold text-white mb-2">Email Terkirim!</h2>
+                <p className="text-slate-400/90 text-sm leading-relaxed mb-4">
+                  Link reset password sudah dikirim ke:
                 </p>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950/30 border border-slate-800/80 mb-6">
                   <LuIcons.LuMail size={14} className="text-indigo-400" />
-                  <span className="text-sm font-bold text-white">{email}</span>
+                  <span className="text-sm font-semibold text-white">{email}</span>
                 </div>
 
-                <p className="text-[11px] text-slate-600 mb-8">
-                  Link berlaku selama <strong className="text-slate-500">1 jam</strong>. Cek folder Spam jika tidak muncul.
+                <p className="text-[11px] text-slate-500 mb-8 max-w-[280px] mx-auto leading-normal">
+                  Link berlaku selama <strong className="text-slate-400">1 jam</strong>. Cek folder Spam jika tidak muncul.
                 </p>
 
                 {/* Actions */}
                 <div className="space-y-3">
                   <button
                     onClick={() => { setSent(false); setEmail(''); }}
-                    className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm font-medium hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-xl bg-white/[0.04] border border-white/[0.06] text-slate-300 text-sm font-medium hover:bg-white/[0.08] transition-all flex items-center justify-center gap-2"
                   >
-                    <LuIcons.LuRefreshCw size={16} />
+                    <LuIcons.LuRefreshCw size={14} />
                     Kirim ulang ke email lain
                   </button>
                   <Link
                     to="/login"
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-indigo-500/20 text-indigo-300 text-sm font-medium hover:from-indigo-600/40 hover:to-purple-600/40 transition-all flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/10 text-indigo-300 text-sm font-medium hover:from-indigo-500/20 hover:to-purple-500/20 transition-all flex items-center justify-center gap-2"
                   >
-                    <LuIcons.LuLogIn size={16} />
+                    <LuIcons.LuLogIn size={14} />
                     Kembali ke Login
                   </Link>
                 </div>
@@ -257,9 +257,9 @@ export default function ForgotPassword() {
           {!sent && (
             <div className="mt-6 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-px bg-white/5" />
-                <span className="text-[11px] text-slate-600">atau</span>
-                <div className="flex-1 h-px bg-white/5" />
+                <div className="flex-1 h-px bg-white/[0.04]" />
+                <span className="text-[11px] text-slate-600/80">atau</span>
+                <div className="flex-1 h-px bg-white/[0.04]" />
               </div>
               <div className="flex items-center justify-center gap-4 text-xs">
                 <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors flex items-center gap-1.5">
@@ -273,7 +273,7 @@ export default function ForgotPassword() {
               <div className="text-center mt-2">
                 <Link
                   to="/"
-                  className="inline-flex items-center gap-2 text-xs text-slate-600 hover:text-slate-400 transition-colors"
+                  className="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-slate-400 transition-colors"
                 >
                   <LuIcons.LuArrowLeft size={12} />
                   Kembali ke Portfolio
@@ -283,8 +283,9 @@ export default function ForgotPassword() {
           )}
         </div>
 
-        <p className="text-center text-[10px] text-slate-700 mt-4 tracking-widest uppercase">
-          Ash<span className="text-pink-600">.</span>dev — Portfolio System
+        {/* Brand Tag */}
+        <p className="text-center text-[10px] text-slate-600/80 mt-6 tracking-widest uppercase">
+          Ash<span className="text-pink-500">.</span>dev — Portfolio System
         </p>
       </motion.div>
     </div>
